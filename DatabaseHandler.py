@@ -34,10 +34,8 @@ def add_multiple(dbname, list):
 def show_all(dbname):
     conn = sqlite3.connect(dbname + ".db")
     cursor = conn.cursor()
-    cursor.execute("SELECT rowid, * from id")
-    items = cursor.fetchall()
-    for item in items:
-        print(item)
+    cursor.execute("SELECT rowid, * FROM id")
+    print_tb(cursor.fetchall())
     conn.commit()
     conn.close()
 
@@ -50,10 +48,26 @@ def delete_one(rowid):
     conn.close()
 
 
-def get_row_id(dbname, )
+def get_row_id(dbname, name, url, username, password):
+    conn = sqlite3.connect(dbname + ".db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT rowid FROM id WHERE name=(?), url=(?) username=(?), password=(?)", name, url, username,
+                   password)
+    print_tb(cursor.fetchall())
+    conn.commit()
+    conn.close()
+
+
+def print_tb(items):
+    for item in items:
+        print(item)
+
+
+def remove_db(dbname):
 
 
 dbname = "pass_man"
 show_all(dbname)
-delete_one(1)
+print("a")
+add_one(dbname, "1337x.to", "https://1337x.to/register", "user@usermail.com", "=qsPtHzpL")
 show_all(dbname)
