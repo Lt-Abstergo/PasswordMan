@@ -1,4 +1,4 @@
-# AES 256 encryption/decryption using pycrypto library
+# AES 256 encryption/decryption using CryptoDome library
 
 import base64
 import hashlib
@@ -17,7 +17,7 @@ def pad(s):
 
 
 #   Removes the unnecessary padding
-def unpad(s):
+def un_pad(s):
     return s.rstrip()
 
 
@@ -44,15 +44,16 @@ def decrypt(enc_dict, password):
     private_key = hashlib.scrypt(password.encode(), salt=salt, n=2 ** 14, r=8, p=1, dklen=32)
     cipher = AES.new(private_key, AES.MODE_CBC, iv)
     decrypted = cipher.decrypt(enc)
-    original = unpad(decrypted)
+    original = un_pad(decrypted)
     return original.decode()
 
 
 def main():
     password = "password"
 
-    input = "First let us encrypt secret message"
-    encrypted = encrypt(input, password)
+    in_str = "First let us encrypt secret message"
+    encrypted = encrypt(in_str, password)
+    encrypted.items()
     print(encrypted)
 
     decrypted = decrypt(encrypted, password)
